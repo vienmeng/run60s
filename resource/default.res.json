@@ -1,0 +1,196 @@
+{
+	"groups":[
+		{
+			"keys":"bg_jpg,description_json,bg_mh.jpg,bg_mask",
+			"name":"preload"
+		},{
+			"keys":"head02,head03,head04,head05,head06,head07,head01,hScrollBar02",
+			"name":"headPort"
+		}],
+	"resources":[
+	{
+		"name":"bg_jpg",
+		"type":"image",
+		"url":"assets/bg.jpg"
+	},
+	{
+		"name":"description_json",
+		"type":"json",
+		"url":"config/description.json"
+	},
+	{
+		"name":"listbg_png",
+		"type":"image",
+		"url":"assets/listbg.png"
+	},
+	{
+		"name":"head01",
+		"type":"image",
+		"url":"assets/headPort/goods01.png"
+	},
+	{
+		"name":"head02",
+		"type":"image",
+		"url":"assets/headPort/goods02.png"
+	},
+	{
+		"name":"head03",
+		"type":"image",
+		"url":"assets/headPort/goods03.png"
+	},
+	{
+		"name":"head04",
+		"type":"image",
+		"url":"assets/headPort/goods04.png"
+	},
+	{
+		"name":"head05",
+		"type":"image",
+		"url":"assets/headPort/goods05.png"
+	},
+	{
+		"name":"head06",
+		"type":"image",
+		"url":"assets/headPort/goods06.png"
+	},
+	{
+		"name":"head07",
+		"type":"image",
+		"url":"assets/headPort/goods07.png"
+	},
+	{
+		"name":"hScrollBar02",
+		"type":"image",
+		"url":"assets/headPort/hScrollBar02.png"
+	},
+	{
+		"name":"bg_mh.jpg",
+		"type":"image",
+		"url":"assets/bg_mh.jpg"
+	},
+	{
+		"name":"bg_mask",
+		"type":"image",
+		"url":"assets/bg_mask.png"
+	},
+		{
+			"url": "assets/CheckBox/checkbox_select_disabled.png",
+			"type": "image",
+			"name": "checkbox_select_disabled_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_down.png",
+			"type": "image",
+			"name": "checkbox_select_down_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_up.png",
+			"type": "image",
+			"name": "checkbox_select_up_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_unselect.png",
+			"type": "image",
+			"name": "checkbox_unselect_png"
+		},
+		{
+			"url": "assets/ItemRenderer/selected.png",
+			"type": "image",
+			"name": "selected_png"
+		},
+		{
+			"url": "assets/Panel/border.png",
+			"type": "image",
+			"name": "border_png"
+		},
+		{
+			"url": "assets/Panel/header.png",
+			"type": "image",
+			"name": "header_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_disabled.png",
+			"type": "image",
+			"name": "radiobutton_select_disabled_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_down.png",
+			"type": "image",
+			"name": "radiobutton_select_down_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_up.png",
+			"type": "image",
+			"name": "radiobutton_select_up_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_unselect.png",
+			"type": "image",
+			"name": "radiobutton_unselect_png"
+		},
+		{
+			"url": "assets/ScrollBar/roundthumb.png",
+			"type": "image",
+			"name": "roundthumb_png"
+		},
+		{
+			"url": "assets/Slider/thumb.png",
+			"type": "image",
+			"name": "thumb_png"
+		},
+		{
+			"url": "assets/Slider/track.png",
+			"type": "image",
+			"name": "track_png"
+		},
+		{
+			"url": "assets/Slider/tracklight.png",
+			"type": "image",
+			"name": "tracklight_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/handle.png",
+			"type": "image",
+			"name": "handle_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/off.png",
+			"type": "image",
+			"name": "off_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/on.png",
+			"type": "image",
+			"name": "on_png"
+		},
+		{
+			"url": "assets/Button/button_down.png",
+			"type": "image",
+			"name": "button_down_png"
+		},
+		{
+			"url": "assets/Button/button_up.png",
+			"type": "image",
+			"name": "button_up_png"
+		},
+		{
+			"url": "assets/ProgressBar/thumb_pb.png",
+			"type": "image",
+			"name": "thumb_pb_png"
+		},
+		{
+			"url": "assets/ProgressBar/track_pb.png",
+			"type": "image",
+			"name": "track_pb_png"
+		},
+		{
+			"url": "assets/ScrollBar/track_sb.png",
+			"type": "image",
+			"name": "track_sb_png"
+		},
+		{
+			"url": "assets/egret_icon.png",
+			"type": "image",
+			"name": "egret_icon_png"
+		}]
+}
