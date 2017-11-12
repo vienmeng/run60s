@@ -20,6 +20,10 @@ var RaceCourse = (function (_super) {
         return _this;
     }
     RaceCourse.prototype.onAddToStage = function (event) {
+        this.contBox = new egret.Sprite();
+        this.addChild(this.contBox);
+        this.backReadyRoom = new egret.Shape();
+        this.addChild(this.backReadyRoom);
     };
     return RaceCourse;
 }(egret.Sprite));

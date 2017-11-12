@@ -10,9 +10,13 @@ class RaceCourse extends egret.Sprite{
     }
 
     public backReadyRoom:egret.Shape;
+    private contBox:egret.Sprite;
 
     private onAddToStage(event:egret.Event):void
     {
-
+        this.contBox = new egret.Sprite();
+        this.addChild(this.contBox);
+        this.backReadyRoom = new egret.Shape();
+        this.addChild(this.backReadyRoom);
     }
 }

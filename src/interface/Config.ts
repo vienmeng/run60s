@@ -26,7 +26,8 @@ class Config{
      * POST /transform/add：新增转化规则
      * PUT /transform/update：修改转化规则
      * DELETE /transform/delete：删除转换规则
-     * GET /user/parity：获取用户的验证信息
+     * POST /user/register：初始化用户数据
+     * GET /user/parity：获取用户验证信息
      * POST /user/login：用户登陆
      * GET /user/check_login：检查用户登陆信息
      * GET /user/logout：退出登陆
@@ -75,12 +76,28 @@ class Config{
     public static TRANSFORM_DELETE:string = "/transform/delete";
 
     public static USER_REGISTER:string = "/user/register";
+    public static USER_PARITY:string = "/user/parity";
     public static USER_LOGIN:string = "/user/login";
     public static USER_CHECK_LOGIN:string = "/user/check_login";
     public static USERS:string = "/users";
 
     public static ADMIN_USERS:string = "/admin/users";
     public static ADMIN_USERS_BETTING:string = "/admin/users/betting";
+
+    /**
+     * 当前的接口地址
+     * @type {string}
+     */
+    public static CURRENT_URL:string = "";
+
+    /**
+     * 场次类型
+     * low:初级
+     * hight:高级
+     */
+
+    public static SENIOR_LOW:string = "low";
+    public static SENIOR_HIGHT:string = "hight";
 
     /**
      * 后台设置的uid
@@ -159,4 +176,10 @@ class Config{
      * 在子菜单打开弹窗
      */
     public static IS_CHILD_OPENSCENE:boolean = false;
+
+    /**
+     * 当前比赛是否开始的详情
+     */
+    public static SCREENING_INFO_DATA:any = {};
+    public static ISNULL_INFO_DATA:boolean = true;
 }

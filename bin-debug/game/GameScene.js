@@ -16,6 +16,7 @@ var GameScene = (function (_super) {
     __extends(GameScene, _super);
     function GameScene() {
         var _this = _super.call(this) || this;
+        _this.daly = 0;
         _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.createScene, _this);
         return _this;
     }
@@ -46,6 +47,26 @@ var GameScene = (function (_super) {
     };
     //等待投注和开始比赛
     GameScene.prototype.isReadyStart = function (event) {
+        /* this.daly += 1;
+         if (this.daly % 15 == 0)
+         {
+             console.log(this.daly)
+         }*/
+        if (!Config.ISNULL_INFO_DATA) {
+            console.log(Config.SCREENING_INFO_DATA);
+            Config.ISNULL_INFO_DATA = true;
+            if (Config.SCREENING_INFO_DATA.betting_status == 0) {
+                this.readyRoom.countDownStr = "投注时间：";
+            }
+            else {
+                this.readyRoom.countDownStr = "比赛倒计时：";
+            }
+            this.readyRoom.timerVal = Math.round(Config.SCREENING_INFO_DATA.left_time / 1000);
+            this.readyRoom.isCountDown();
+            this.readyRoom.countDown.text = this.readyRoom.countDownStr + this.readyRoom.timerVal.toString();
+            this.readyRoom.timer.reset();
+            this.readyRoom.timer.start();
+        }
         if (this.readyRoom.isStartGame) {
             this.createRaceCourse();
         }
@@ -62,6 +83,7 @@ var GameScene = (function (_super) {
     GameScene.prototype.createRaceCourse = function () {
         this.raceCourse = new RaceCourse();
         this.addChild(this.raceCourse);
+        this.removeEventListener(egret.Event.ENTER_FRAME, this.isReadyStart, this);
         this.removeChild(this.readyRoom);
         this.raceCourse.backReadyRoom.addEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBackBasicReadyRoom, this);
     };

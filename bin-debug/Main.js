@@ -156,10 +156,14 @@ var Main = (function (_super) {
      * Get user data
      */
     Main.prototype.getUserData = function () {
-        var params = "uid=" + Config.USER_UID + "&openid=" + Config.OPENID;
+        // let params:string = "uid=" + Config.USER_UID;
+        var params = "?uid=" + Config.USER_UID + "&openid=" + Config.OPENID;
         // let req:HttpRequest = new HttpRequest(Config.USER_REGISTER, params, egret.HttpMethod.POST);
         //检查用户是否登陆
-        var req = new HttpRequest(Config.USER_CHECK_LOGIN, "", egret.HttpMethod.GET);
+        Config.CURRENT_URL = Config.USER_CHECK_LOGIN;
+        var req = new HttpRequest(Config.CURRENT_URL + params + "&t=" + Date.now(), "", egret.HttpMethod.GET);
+        //获取验证信息
+        // let req:HttpRequest = new HttpRequest(Config.USER_PARITY, "", egret.HttpMethod.GET);
     };
     Main.prototype.createGameScene = function () {
         this.addEventListener(egret.Event.ENTER_FRAME, this.isRequestComplete, this);

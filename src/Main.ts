@@ -167,11 +167,16 @@ class Main extends eui.UILayer {
 
     private getUserData():void
     {
-        let params:string = "uid=" + Config.USER_UID +"&openid=" + Config.OPENID;
+        // let params:string = "uid=" + Config.USER_UID;
+        let params:string = "?uid=" + Config.USER_UID +"&openid=" + Config.OPENID;
         // let req:HttpRequest = new HttpRequest(Config.USER_REGISTER, params, egret.HttpMethod.POST);
 
         //检查用户是否登陆
-        let req:HttpRequest = new HttpRequest(Config.USER_CHECK_LOGIN, "", egret.HttpMethod.GET);
+        Config.CURRENT_URL = Config.USER_CHECK_LOGIN;
+        let req:HttpRequest = new HttpRequest(Config.CURRENT_URL + params + "&t=" + Date.now(), "", egret.HttpMethod.GET);
+
+        //获取验证信息
+        // let req:HttpRequest = new HttpRequest(Config.USER_PARITY, "", egret.HttpMethod.GET);
     }
 
     /**

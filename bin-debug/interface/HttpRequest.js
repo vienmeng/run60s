@@ -24,23 +24,27 @@ var HttpRequest = (function (_super) {
     HttpRequest.prototype.onHttpRequest = function (url, data, type) {
         this._interFace = url;
         var params = data;
+        console.log(type);
         console.log(params);
         var request = new egret.HttpRequest();
         request.responseType = egret.HttpResponseType.TEXT;
         request.addEventListener(egret.Event.COMPLETE, this.onRequestComplete, this);
         request.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onRequestError, this);
         request.addEventListener(egret.ProgressEvent.PROGRESS, this.onRequestProgress, this);
+        if (type == egret.HttpMethod.POST) {
+            request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        }
         request.open(Config.USER_SERVER_URL + this._interFace, type);
-        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         request.send(params);
     };
     HttpRequest.prototype.onRequestComplete = function (event) {
         var request = event.currentTarget;
         var req = JSON.parse(request.response);
         console.log(req);
+        console.log(Config.CURRENT_URL);
         var params = "";
         //检查是否登陆
-        if (this._interFace == Config.USER_CHECK_LOGIN) {
+        if (Config.CURRENT_URL == Config.USER_CHECK_LOGIN) {
             if (req.success) {
                 console.log("已登陆");
                 //已登陆，则获取用户信息（该接口还未弄好  暂时用虚拟数据）
@@ -51,11 +55,12 @@ var HttpRequest = (function (_super) {
                 console.log("未登陆");
                 //未登录，则先尝试登陆
                 params = "uid=" + Config.USER_UID + "&openid=" + Config.OPENID + "&remember=是";
-                this.onHttpRequest(Config.USER_LOGIN, params, egret.HttpMethod.POST);
+                Config.CURRENT_URL = Config.USER_LOGIN;
+                this.onHttpRequest(Config.CURRENT_URL, params, egret.HttpMethod.POST);
             }
         }
         //用户登陆返回
-        if (this._interFace == Config.USER_LOGIN) {
+        if (Config.CURRENT_URL == Config.USER_LOGIN) {
             if (req.success) {
                 //登陆成功，则获取用户信息（该接口还未弄好  暂时用虚拟数据）
                 this.createUserInfo();
@@ -64,19 +69,31 @@ var HttpRequest = (function (_super) {
                 // 登陆失败，切是位置open ID，则现注册
                 if (req.error_code == -1) {
                     params = "uid=" + Config.USER_UID + "&openid=" + Config.OPENID;
-                    this.onHttpRequest(Config.USER_REGISTER, params, egret.HttpMethod.POST);
+                    Config.CURRENT_URL = Config.USER_REGISTER;
+                    this.onHttpRequest(Config.CURRENT_URL, params, egret.HttpMethod.POST);
                 }
             }
         }
         //新用户注册返回
-        if (this._interFace == Config.USER_REGISTER) {
+        if (Config.CURRENT_URL == Config.USER_REGISTER) {
             if (req.success) {
                 //注册成功，则开始登陆
                 params = "uid=" + Config.USER_UID + "&openid=" + Config.OPENID + "&remember=是";
-                this.onHttpRequest(Config.USER_LOGIN, params, egret.HttpMethod.POST);
+                Config.CURRENT_URL = Config.USER_LOGIN;
+                this.onHttpRequest(Config.CURRENT_URL, params, egret.HttpMethod.POST);
             }
             else {
                 //注册失败，弹出错误提示
+                alert(req.msg);
+            }
+        }
+        //比赛是否开始
+        if (Config.CURRENT_URL == Config.SCREENING_INFO) {
+            if (req.success) {
+                Config.SCREENING_INFO_DATA = req.result;
+                Config.ISNULL_INFO_DATA = false;
+            }
+            else {
                 alert(req.msg);
             }
         }

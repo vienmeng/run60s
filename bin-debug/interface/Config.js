@@ -28,7 +28,8 @@ var Config = (function () {
      * POST /transform/add：新增转化规则
      * PUT /transform/update：修改转化规则
      * DELETE /transform/delete：删除转换规则
-     * GET /user/parity：获取用户的验证信息
+     * POST /user/register：初始化用户数据
+     * GET /user/parity：获取用户验证信息
      * POST /user/login：用户登陆
      * GET /user/check_login：检查用户登陆信息
      * GET /user/logout：退出登陆
@@ -73,11 +74,24 @@ var Config = (function () {
     Config.TRANSFORM_UPDATE = "/transform/update";
     Config.TRANSFORM_DELETE = "/transform/delete";
     Config.USER_REGISTER = "/user/register";
+    Config.USER_PARITY = "/user/parity";
     Config.USER_LOGIN = "/user/login";
     Config.USER_CHECK_LOGIN = "/user/check_login";
     Config.USERS = "/users";
     Config.ADMIN_USERS = "/admin/users";
     Config.ADMIN_USERS_BETTING = "/admin/users/betting";
+    /**
+     * 当前的接口地址
+     * @type {string}
+     */
+    Config.CURRENT_URL = "";
+    /**
+     * 场次类型
+     * low:初级
+     * hight:高级
+     */
+    Config.SENIOR_LOW = "low";
+    Config.SENIOR_HIGHT = "hight";
     /**
      * 后台设置的uid
      */
@@ -144,5 +158,10 @@ var Config = (function () {
      * 在子菜单打开弹窗
      */
     Config.IS_CHILD_OPENSCENE = false;
+    /**
+     * 当前比赛是否开始的详情
+     */
+    Config.SCREENING_INFO_DATA = {};
+    Config.ISNULL_INFO_DATA = true;
     return Config;
 }());
