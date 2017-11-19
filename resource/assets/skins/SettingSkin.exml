@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="setting.SettingSkin" width="1136" height="640" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<w:Config id="15fc57e3723"/>
+	<e:Image source="bg_mask" x="0" y="0" width="1136" height="640"/>
+	<e:Image source="user_bg" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image id="close_btn" source="close_btn" x="807" y="134"/>
+	<e:Image source="settingTitle_png" y="173.65" horizontalCenter="0"/>
+	<e:Label text="音乐" x="449.33" y="290" size="32" textColor="0xe5c781" fontFamily="Microsoft YaHei"/>
+	<e:Label text="音效" x="449.33" y="360" size="32" textColor="0xE5C781" fontFamily="Microsoft YaHei"/>
+	<e:Image id="Bg_Music_bg" source="soundOpen_png" x="575.66" y="285"/>
+	<e:Image id="Bg_Sound_bg" source="soundClose_png" x="575.66" y="355"/>
+	<e:Image id="Bg_Music_btn" source="soundBtn_png" x="642" y="280"/>
+	<e:Image id="Bg_Sound_btn" source="soundBtn_png" x="565" y="349.33"/>
+</e:Skin>

@@ -15,14 +15,30 @@ var __extends = (this && this.__extends) || (function () {
  */
 var CreateBitmap = (function (_super) {
     __extends(CreateBitmap, _super);
-    function CreateBitmap(name) {
+    function CreateBitmap(name, url) {
         var _this = _super.call(this) || this;
-        _this.produceBitmap(name);
+        _this.produceBitmap(name, url);
         return _this;
     }
-    CreateBitmap.prototype.produceBitmap = function (name) {
-        var texture = RES.getRes(name);
-        this.texture = texture;
+    CreateBitmap.prototype.produceBitmap = function (name, url) {
+        if (url) {
+            var imageLoader = new egret.ImageLoader();
+            imageLoader.addEventListener(egret.Event.COMPLETE, this.loadCompleteHandler, this);
+            imageLoader.load(url);
+        }
+        else {
+            var texture = RES.getRes(name);
+            this.texture = texture;
+            return this;
+        }
+    };
+    CreateBitmap.prototype.loadCompleteHandler = function (event) {
+        var loader = event.target;
+        //获取加载到的纹理对象
+        var bitmapData = loader.data;
+        //创建纹理对象
+        // let texture = new egret.Texture();
+        this.texture.bitmapData = bitmapData;
         return this;
     };
     return CreateBitmap;

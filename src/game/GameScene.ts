@@ -17,7 +17,6 @@ class GameScene extends egret.DisplayObjectContainer{
     //创建初始化场景，默认为home
     private createScene(event:egret.Event):void
     {
-        console.log(Config.USER_CREDIT);
         this.createHome();
     }
 
@@ -26,14 +25,16 @@ class GameScene extends egret.DisplayObjectContainer{
     {
         this.home = new Home();
         this.addChild(this.home);
-        this.home.basicCourt_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBasicReadyRoom, this);
+        this.home.Low_mc.addEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBasicReadyRoom, this);
+        this.home.seniorCourt_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBasicReadyRoom, this);
 
     }
 
     //前往押注页
     private gotoBasicReadyRoom(event:egret.TouchEvent):void
     {
-        this.home.basicCourt_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBasicReadyRoom, this);
+        this.home.Low_mc.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBasicReadyRoom, this);
+        this.home.seniorCourt_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBasicReadyRoom, this);
         this.createBasicReadyRoom();
         this.removeChild(this.home);
     }
@@ -45,6 +46,12 @@ class GameScene extends egret.DisplayObjectContainer{
         this.addChild(this.readyRoom);
 
         this.readyRoom.backHome.addEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBackHome, this);
+
+        //这只是个测试
+        setTimeout(function () {
+            this.createRaceCourse();
+        }.bind(this), 500);
+
         this.addEventListener(egret.Event.ENTER_FRAME, this.isReadyStart, this);
         // this.isReadyStart();
     }
@@ -78,7 +85,6 @@ class GameScene extends egret.DisplayObjectContainer{
         {
             this.createRaceCourse();
         }
-
     }
 
     //返回home页面
@@ -86,7 +92,8 @@ class GameScene extends egret.DisplayObjectContainer{
     {
         this.readyRoom.backHome.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBackHome, this);
         this.createHome();
-        this.readyRoom.timer.reset();
+        this.readyRoom.removeChildren();
+        // this.readyRoom.timer.reset();
         this.removeChild(this.readyRoom);
         this.removeEventListener(egret.Event.ENTER_FRAME, this.isReadyStart, this);
     }
@@ -97,6 +104,7 @@ class GameScene extends egret.DisplayObjectContainer{
         this.raceCourse = new RaceCourse();
         this.addChild(this.raceCourse);
         this.removeEventListener(egret.Event.ENTER_FRAME, this.isReadyStart, this);
+        this.readyRoom.removeChildren();
         this.removeChild(this.readyRoom);
         this.raceCourse.backReadyRoom.addEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBackBasicReadyRoom, this);
     }

@@ -24,8 +24,6 @@ var HttpRequest = (function (_super) {
     HttpRequest.prototype.onHttpRequest = function (url, data, type) {
         this._interFace = url;
         var params = data;
-        console.log(type);
-        console.log(params);
         var request = new egret.HttpRequest();
         request.responseType = egret.HttpResponseType.TEXT;
         request.addEventListener(egret.Event.COMPLETE, this.onRequestComplete, this);
@@ -40,68 +38,55 @@ var HttpRequest = (function (_super) {
     HttpRequest.prototype.onRequestComplete = function (event) {
         var request = event.currentTarget;
         var req = JSON.parse(request.response);
-        console.log(req);
+        console.log("==========ssss===============");
         console.log(Config.CURRENT_URL);
-        var params = "";
-        //检查是否登陆
-        if (Config.CURRENT_URL == Config.USER_CHECK_LOGIN) {
-            if (req.success) {
-                console.log("已登陆");
-                //已登陆，则获取用户信息（该接口还未弄好  暂时用虚拟数据）
-                // Config.USER_IDS = req.result.id.
-                this.createUserInfo();
-            }
-            else {
-                console.log("未登陆");
-                //未登录，则先尝试登陆
-                params = "uid=" + Config.USER_UID + "&openid=" + Config.OPENID + "&remember=是";
-                Config.CURRENT_URL = Config.USER_LOGIN;
-                this.onHttpRequest(Config.CURRENT_URL, params, egret.HttpMethod.POST);
-            }
-        }
-        //用户登陆返回
-        if (Config.CURRENT_URL == Config.USER_LOGIN) {
-            if (req.success) {
-                //登陆成功，则获取用户信息（该接口还未弄好  暂时用虚拟数据）
-                this.createUserInfo();
-            }
-            else {
-                // 登陆失败，切是位置open ID，则现注册
-                if (req.error_code == -1) {
-                    params = "uid=" + Config.USER_UID + "&openid=" + Config.OPENID;
-                    Config.CURRENT_URL = Config.USER_REGISTER;
-                    this.onHttpRequest(Config.CURRENT_URL, params, egret.HttpMethod.POST);
-                }
+        console.log(req);
+        console.log("===========eeee==============");
+        if (req.success) {
+            switch (Config.CURRENT_URL) {
+                //获取登陆信息
+                case Config.USER_PARITY:
+                    Config.USER_MOBILE = req.result.mobile;
+                    Config.USER_CODE = req.result.code;
+                    this.onUserLogin();
+                    break;
+                //登陆
+                case Config.USER_LOGIN:
+                    Config.USER_COIN = req.result.coin;
+                    Config.USER_GOLD = req.result.gold;
+                    this.onUserInfo();
+                    break;
+                //获取用户信息
+                case Config.USER_INFO:
+                    this.createUserInfo(req);
+                    break;
+                //注册
+                case Config.USER_REGISTER:
+                    break;
+                //是否开启比赛
+                case Config.SCREENING_INFO:
+                    Config.SCREENING_INFO_DATA = req.result;
+                    Config.ISNULL_INFO_DATA = false;
+                    break;
             }
         }
-        //新用户注册返回
-        if (Config.CURRENT_URL == Config.USER_REGISTER) {
-            if (req.success) {
-                //注册成功，则开始登陆
-                params = "uid=" + Config.USER_UID + "&openid=" + Config.OPENID + "&remember=是";
-                Config.CURRENT_URL = Config.USER_LOGIN;
-                this.onHttpRequest(Config.CURRENT_URL, params, egret.HttpMethod.POST);
-            }
-            else {
-                //注册失败，弹出错误提示
-                alert(req.msg);
-            }
+        else {
+            alert(req.msg);
         }
-        //比赛是否开始
-        if (Config.CURRENT_URL == Config.SCREENING_INFO) {
-            if (req.success) {
-                Config.SCREENING_INFO_DATA = req.result;
-                Config.ISNULL_INFO_DATA = false;
-            }
-            else {
-                alert(req.msg);
-            }
-        }
-        // this.createUserInfo();
+    };
+    //登陆
+    HttpRequest.prototype.onUserLogin = function () {
+        var params = "code=" + Config.USER_CODE + "&mobile=" + Config.USER_MOBILE + "&remember=是";
+        Config.CURRENT_URL = Config.USER_LOGIN;
+        this.onHttpRequest(Config.CURRENT_URL, params, egret.HttpMethod.POST);
+    };
+    //获取信息
+    HttpRequest.prototype.onUserInfo = function () {
+        Config.CURRENT_URL = Config.USER_INFO;
+        this.onHttpRequest(Config.CURRENT_URL, "", egret.HttpMethod.GET);
     };
     HttpRequest.prototype.onRequestError = function (event) {
         console.log("error : " + event);
-        this.createUserInfo();
     };
     HttpRequest.prototype.onRequestProgress = function (event) {
         console.log("progress : " + Math.floor(100 * event.bytesLoaded / event.bytesTotal) + "%");
@@ -109,12 +94,11 @@ var HttpRequest = (function (_super) {
     HttpRequest.prototype.callBalck = function () {
         return this.userData;
     };
-    HttpRequest.prototype.createUserInfo = function () {
-        Config.IS_REQUEST = true;
-        Config.USER_CREDIT = 1000;
-        Config.USER_NAME = "测试名字";
-        Config.USER_IMG_URL = "http://";
+    HttpRequest.prototype.createUserInfo = function (req) {
+        Config.USER_NAME = "六个字的名字";
+        Config.USER_IMG_URL = req.result.headimgurl;
         Config.USER_RICH_RANKING = 55;
+        Config.IS_REQUEST = true;
     };
     return HttpRequest;
 }(egret.DisplayObject));

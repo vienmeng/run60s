@@ -1,0 +1,38 @@
+{
+    "global": {
+        "gridColor": 8158332,
+        "gridEnabled": false,
+        "gridSize": 20,
+        "globalAdsorbEnable": false,
+        "globalRulerEnable": false,
+        "globalAutoLayerMarkEnable": false
+    },
+    "15fc0a5fbf4": {
+        "backgroundX": 0,
+        "backgroundY": 0,
+        "backgroundWidth": -1,
+        "backgroundHeight": -1,
+        "useBgImage": true,
+        "useBgColor": true,
+        "backgroundAlpha": 100,
+        "backgroundType": "user",
+        "backgroundColor": "#ffffff",
+        "backgroundImage": "D:\\xampp\\htdocs\\xampp\\myWeb\\myGame\\egret\\run60s\\resource\\assets\\home\\bg_mask.png"
+    },
+    "15fc57e3723": {
+        "backgroundType": "null",
+        "backgroundImage": "D:\\xampp\\htdocs\\xampp\\myWeb\\myGame\\egret\\run60s\\resource\\assets\\home\\bg_mask.png",
+        "backgroundX": 0,
+        "backgroundY": 0,
+        "backgroundWidth": -1,
+        "backgroundHeight": -1,
+        "useBgImage": true,
+        "useBgColor": true,
+        "backgroundAlpha": 100
+    },
+    "15fc5cc0f73": {
+        "path": "..\\resource\\assets\\skins\\shopStore.ts",
+        "class": "shopStore",
+        "parentPath": ""
+    }
+}

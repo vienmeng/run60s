@@ -28,10 +28,16 @@ class Home extends egret.Sprite{
     private task_btn:egret.Shape;
     private singIn_btn:egret.Shape;
     private shop_btn:egret.Shape;
-    private userInfo_btn:egret.Shape;
+    private userInfo_btn:egret.Sprite;
+    private userInfo_btnImg:CreateBitmap;
+    private userImg:CreateBitmap;
     public basicCourt_btn:egret.Shape;
     public seniorCourt_btn:egret.Shape;
     private richList_btn:egret.Shape;
+    private IndexFactory:egret.MovieClipDataFactory;
+    private IndexFactory2:egret.MovieClipDataFactory;
+    public Low_mc:egret.MovieClip;
+    private Hight_mc:egret.MovieClip;
 
     private onAddToStage(event:egret.Event):void
     {
@@ -89,13 +95,60 @@ class Home extends egret.Sprite{
         this.shop_btn.touchEnabled = true;
 
         //用户头像
-        this.userInfo_btn = new egret.Shape();
-        this.userInfo_btn.graphics.lineStyle(2, 0xff0000, 1);
-        this.userInfo_btn.graphics.beginFill(0xff0000, 0.1);
-        this.userInfo_btn.graphics.drawRoundRect(10, 7, 85, 85, 10, 10);
+        this.userInfo_btn = new egret.Sprite();
+        this.userInfo_btn.graphics.drawRoundRect(13, 10, 80, 80, 10, 10);
         this.addChild(this.userInfo_btn);
         this.userInfo_btn.name = "userInfoBtn";
         this.userInfo_btn.touchEnabled = true;
+
+        this.userInfo_btnImg = new CreateBitmap("user_head");
+        this.userInfo_btn.addChild(this.userInfo_btnImg);
+        this.userInfo_btnImg.x = 12;
+        this.userInfo_btnImg.y = 9;
+        this.userInfo_btnImg.width = 80;
+        this.userInfo_btnImg.height = 80;
+
+        // this.userImg = new CreateBitmap("", Config.USER_IMG_URL);
+        // this.userInfo_btn.addChild(this.userImg);
+        // this.userImg.x = 12;
+        // this.userImg.y = 9;
+        // this.userImg.width = 80;
+        // this.userImg.height = 80;
+        // this.createUserHeadImg();
+
+        let data = RES.getRes("Home1_json");
+        let txtr = RES.getRes("Home1_png");
+
+        let data2 = RES.getRes("Home2_json");
+        let txtr2 = RES.getRes("Home2_png");
+
+        this.IndexFactory = new egret.MovieClipDataFactory(data, txtr);
+        this.IndexFactory2 = new egret.MovieClipDataFactory(data2, txtr2);
+
+        this.Hight_mc = new egret.MovieClip(this.IndexFactory.generateMovieClipData("Home"));
+        this.addChild(this.Hight_mc);
+        this.Hight_mc.gotoAndPlay("Hight");
+        this.Hight_mc.x = 450;
+        this.Hight_mc.y = 100;
+        this.Hight_mc.frameRate = 12;
+
+        this.Low_mc = new egret.MovieClip(this.IndexFactory2.generateMovieClipData("Home"));
+        this.addChild(this.Low_mc);
+        this.Low_mc.gotoAndPlay(20);
+        this.Low_mc.x = 20;
+        this.Low_mc.y = 100;
+        this.Low_mc.frameRate = 12;
+        this.Low_mc.touchEnabled = true;
+
+        this.Low_mc.addEventListener(egret.Event.COMPLETE, (event:egret.Event)=>
+        {
+            setTimeout((e)=>{this.Low_mc.gotoAndPlay("Low")}, 3000);
+        }, this);
+
+        this.Hight_mc.addEventListener(egret.Event.COMPLETE, (event:egret.Event)=>
+        {
+            setTimeout((e)=>{this.Hight_mc.gotoAndPlay("Hight")}, 5000);
+        }, this);
 
         //财富榜
         this.richList_btn = new egret.Shape();
@@ -133,6 +186,30 @@ class Home extends egret.Sprite{
         listGrop.x = 200;
         listGrop.y = 100;
         */
+    }
+
+    /**
+     * 显示头像
+     */
+    private createUserHeadImg():void
+    {
+        let source:string = Config.USER_IMG_URL;
+        let img:eui.Image = new eui.Image();
+        img.source = source;
+        this.addChild(img);
+        img.verticalCenter = 0;
+        img.horizontalCenter = 0;
+    }
+
+    private loadCompleteHandler(event:egret.Event) {
+        let loader:egret.ImageLoader = <egret.ImageLoader>event.target;
+        //获取加载到的纹理对象
+        let bitmapData:egret.BitmapData = loader.data;
+        //创建纹理对象
+        let texture = new egret.Texture();
+        texture.bitmapData = bitmapData;
+        let bitmap:egret.Bitmap = new egret.Bitmap(texture);
+        this.addChild(bitmap);
     }
 
     /**
@@ -217,9 +294,9 @@ class Home extends egret.Sprite{
             return;
         }
         let targ = event.currentTarget;
-        targ.parent.parent.visible = false;
+        targ.parent.visible = false;
         targ.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.isHideTargetScene, this);
-        this.removeChild(targ.parent.parent);
+        this.removeChild(targ.parent);
         this.current_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.isShowTargetScene, this);
         this.richList_btn.visible = true;
         Config.IS_HIDE_HOME_CHILDSCENE = true;

@@ -22,18 +22,19 @@ var GameScene = (function (_super) {
     }
     //创建初始化场景，默认为home
     GameScene.prototype.createScene = function (event) {
-        console.log(Config.USER_CREDIT);
         this.createHome();
     };
     //创建主页
     GameScene.prototype.createHome = function () {
         this.home = new Home();
         this.addChild(this.home);
-        this.home.basicCourt_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBasicReadyRoom, this);
+        this.home.Low_mc.addEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBasicReadyRoom, this);
+        this.home.seniorCourt_btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBasicReadyRoom, this);
     };
     //前往押注页
     GameScene.prototype.gotoBasicReadyRoom = function (event) {
-        this.home.basicCourt_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBasicReadyRoom, this);
+        this.home.Low_mc.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBasicReadyRoom, this);
+        this.home.seniorCourt_btn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBasicReadyRoom, this);
         this.createBasicReadyRoom();
         this.removeChild(this.home);
     };
@@ -42,6 +43,10 @@ var GameScene = (function (_super) {
         this.readyRoom = new ReadyRoom();
         this.addChild(this.readyRoom);
         this.readyRoom.backHome.addEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBackHome, this);
+        //这只是个测试
+        setTimeout(function () {
+            this.createRaceCourse();
+        }.bind(this), 500);
         this.addEventListener(egret.Event.ENTER_FRAME, this.isReadyStart, this);
         // this.isReadyStart();
     };
@@ -75,7 +80,8 @@ var GameScene = (function (_super) {
     GameScene.prototype.gotoBackHome = function (event) {
         this.readyRoom.backHome.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBackHome, this);
         this.createHome();
-        this.readyRoom.timer.reset();
+        this.readyRoom.removeChildren();
+        // this.readyRoom.timer.reset();
         this.removeChild(this.readyRoom);
         this.removeEventListener(egret.Event.ENTER_FRAME, this.isReadyStart, this);
     };
@@ -84,6 +90,7 @@ var GameScene = (function (_super) {
         this.raceCourse = new RaceCourse();
         this.addChild(this.raceCourse);
         this.removeEventListener(egret.Event.ENTER_FRAME, this.isReadyStart, this);
+        this.readyRoom.removeChildren();
         this.removeChild(this.readyRoom);
         this.raceCourse.backReadyRoom.addEventListener(egret.TouchEvent.TOUCH_TAP, this.gotoBackBasicReadyRoom, this);
     };

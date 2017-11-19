@@ -31,7 +31,7 @@ class Config{
      * POST /user/login：用户登陆
      * GET /user/check_login：检查用户登陆信息
      * GET /user/logout：退出登陆
-     * POST /users：获取用户信息
+     * POST /user_info：获取用户信息
      * GET /admin/users：后台：获取用户信息列表
      * GET /admin/users/betting：后台：获取用户下注信息列表
      *
@@ -79,7 +79,7 @@ class Config{
     public static USER_PARITY:string = "/user/parity";
     public static USER_LOGIN:string = "/user/login";
     public static USER_CHECK_LOGIN:string = "/user/check_login";
-    public static USERS:string = "/users";
+    public static USER_INFO:string = "/user/info";
 
     public static ADMIN_USERS:string = "/admin/users";
     public static ADMIN_USERS_BETTING:string = "/admin/users/betting";
@@ -121,10 +121,11 @@ class Config{
     public static TEST_MOBILE:string = "13282131779";
 
     /**
-     * 获取URL上的用户手机号码
+     * 获取URL上的用户手机号码和code
      * @type {string}
      */
     public static USER_MOBILE:string = new GetQueryString("mobile").QueryString;
+    public static USER_CODE:string = new GetQueryString("code").QueryString;
 
     /**
      * app后台请求方式
@@ -137,14 +138,14 @@ class Config{
 
     /**
      * app返回过来的用户信息
-     * user_credit:元宝数
-     * user_gold:金币数
+     * user_coin:金币数
+     * user_gold:元宝数
      * user_message:返回消息
      * user_name:用户名
      * user_img_url:用户头像地址
      * user_rich_ranking:财富排行
      */
-    public static USER_CREDIT:number = 0;
+    public static USER_COIN:number = 0;
     public static USER_GOLD:number = 0;
     public static USER_MESSAGE:string = "";
     public static USER_NAME:string = "";
@@ -182,4 +183,11 @@ class Config{
      */
     public static SCREENING_INFO_DATA:any = {};
     public static ISNULL_INFO_DATA:boolean = true;
+
+    /**
+     * 判断什么场景调用马
+     * false: 投注场景
+     * true：比赛场景
+     */
+    public static HORSE_SCENE:boolean = false;
 }

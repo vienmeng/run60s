@@ -33,7 +33,7 @@ var Config = (function () {
      * POST /user/login：用户登陆
      * GET /user/check_login：检查用户登陆信息
      * GET /user/logout：退出登陆
-     * POST /users：获取用户信息
+     * POST /user_info：获取用户信息
      * GET /admin/users：后台：获取用户信息列表
      * GET /admin/users/betting：后台：获取用户下注信息列表
      *
@@ -77,7 +77,7 @@ var Config = (function () {
     Config.USER_PARITY = "/user/parity";
     Config.USER_LOGIN = "/user/login";
     Config.USER_CHECK_LOGIN = "/user/check_login";
-    Config.USERS = "/users";
+    Config.USER_INFO = "/user/info";
     Config.ADMIN_USERS = "/admin/users";
     Config.ADMIN_USERS_BETTING = "/admin/users/betting";
     /**
@@ -110,10 +110,11 @@ var Config = (function () {
      */
     Config.TEST_MOBILE = "13282131779";
     /**
-     * 获取URL上的用户手机号码
+     * 获取URL上的用户手机号码和code
      * @type {string}
      */
     Config.USER_MOBILE = new GetQueryString("mobile").QueryString;
+    Config.USER_CODE = new GetQueryString("code").QueryString;
     /**
      * app后台请求方式
      * 操作类型 select 查询元宝数量 add 增加元宝数量 decrease 减少元宝数量
@@ -124,14 +125,14 @@ var Config = (function () {
     Config.USER_OPST_TYPE_DECREASE = "decrease";
     /**
      * app返回过来的用户信息
-     * user_credit:元宝数
-     * user_gold:金币数
+     * user_coin:金币数
+     * user_gold:元宝数
      * user_message:返回消息
      * user_name:用户名
      * user_img_url:用户头像地址
      * user_rich_ranking:财富排行
      */
-    Config.USER_CREDIT = 0;
+    Config.USER_COIN = 0;
     Config.USER_GOLD = 0;
     Config.USER_MESSAGE = "";
     Config.USER_NAME = "";
@@ -163,5 +164,11 @@ var Config = (function () {
      */
     Config.SCREENING_INFO_DATA = {};
     Config.ISNULL_INFO_DATA = true;
+    /**
+     * 判断什么场景调用马
+     * false: 投注场景
+     * true：比赛场景
+     */
+    Config.HORSE_SCENE = false;
     return Config;
 }());

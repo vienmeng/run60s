@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="skins.UserBox" width="1136" height="640" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="bg_mask" x="0" y="0" anchorOffsetX="0" width="1136" anchorOffsetY="0" height="640"/>
+	<e:Image source="user_bg" horizontalCenter="0" verticalCenter="-1"/>
+	<e:Image source="user_head" x="378" y="249"/>
+	<e:Image source="value_frame" x="372" y="392" anchorOffsetX="0" width="126" height="33"/>
+	<e:Image source="value_frame" x="640" y="392" anchorOffsetX="0" width="126" anchorOffsetY="0" height="33"/>
+	<e:Label id="userCoin_val" text="9999" x="387" y="395" size="24" verticalAlign="middle" anchorOffsetY="0" height="28" anchorOffsetX="0" width="92" textColor="0xe5c781" textAlign="left"/>
+	<e:Label id="user_name" text="六个字的名字" x="519" y="282" anchorOffsetX="0" width="250" height="32" size="32" fontFamily="Microsoft YaHei" verticalAlign="justify"/>
+	<e:Label id="userGold_val" text="9999" x="658" y="395" size="24" verticalAlign="middle" anchorOffsetY="0" height="28" anchorOffsetX="0" width="92" textColor="0xe5c781"/>
+	<e:Image source="user_title" y="171" horizontalCenter="0"/>
+	<e:Image id="close_btn" source="close_btn" x="807" y="134"/>
+	<e:Image source="coin_xiao" x="333" y="379" anchorOffsetX="0" width="60" anchorOffsetY="0" height="60" rotation="360"/>
+	<e:Image id="add_coin" source="add_btn" x="482" y="386"/>
+	<e:Image id="add_gold" source="add_btn" x="748" y="386"/>
+	<e:Image source="gold" x="603" y="380" width="60" height="60"/>
+</e:Skin>

@@ -18,7 +18,6 @@
 		"bin-debug/commonest/CreateText.js",
 		"bin-debug/AssetAdapter.js",
 		"bin-debug/game/GameScene.js",
-		"bin-debug/game/Login.js",
 		"bin-debug/game/dataList/HistoryList.js",
 		"bin-debug/game/dataList/SumList.js",
 		"bin-debug/game/scene/Home.js",

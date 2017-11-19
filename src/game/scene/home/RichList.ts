@@ -84,11 +84,14 @@ class RichList extends egret.Sprite{
         this.listGrop.height = 400;
         this.listGrop.x = 170;
         this.listGrop.y = 120;
+        // console.log(this.listGrop.list.dataProvider);
+
         let coll = new eui.ArrayCollection();
         for (let i = 0;i < 50;i ++)
         {
-            coll.addItem({"labelRank":(i + 1).toString(),"icon":"head01","label": Config.USER_NAME + (i + 1), "labelGold": "总资产：" + Config.USER_CREDIT});
+            coll.addItem({"icon":"head01","label": Config.USER_NAME + (i + 1), "labelGold": "¥：" + Config.USER_COIN});
         }
         this.listGrop.list.dataProvider = coll;
+
     }
 }

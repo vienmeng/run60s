@@ -72,10 +72,17 @@ class Main extends eui.UILayer {
         this.loadingView = new LoadingUI();
         this.stage.addChild(this.loadingView);
 
+        this.loadingView.startBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.removeLoading, this);
+
         //初始化Resource资源加载库
         //initiate Resource loading library
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         RES.loadConfig("resource/default.res.json", "resource/");
+    }
+
+    private removeLoading(event:egret.TouchEvent):void
+    {
+        this.stage.removeChild(this.loadingView);
     }
 
     /**
@@ -93,8 +100,13 @@ class Main extends eui.UILayer {
         RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
         RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
+        RES.loadGroup("loading");
         RES.loadGroup("preload");
         RES.loadGroup("headPort");
+        RES.loadGroup("comm_icon");
+        RES.loadGroup("userInfo");
+        RES.loadGroup("movieClip");
+        RES.loadGroup("track");
     }
     private isThemeLoadEnd: boolean = false;
     /**
@@ -113,7 +125,7 @@ class Main extends eui.UILayer {
      */
     private onResourceLoadComplete(event: RES.ResourceEvent) {
         if (event.groupName == "preload") {
-            this.stage.removeChild(this.loadingView);
+            // this.stage.removeChild(this.loadingView);
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
@@ -167,16 +179,10 @@ class Main extends eui.UILayer {
 
     private getUserData():void
     {
-        // let params:string = "uid=" + Config.USER_UID;
         let params:string = "?uid=" + Config.USER_UID +"&openid=" + Config.OPENID;
-        // let req:HttpRequest = new HttpRequest(Config.USER_REGISTER, params, egret.HttpMethod.POST);
-
         //检查用户是否登陆
-        Config.CURRENT_URL = Config.USER_CHECK_LOGIN;
+        Config.CURRENT_URL = Config.USER_PARITY;
         let req:HttpRequest = new HttpRequest(Config.CURRENT_URL + params + "&t=" + Date.now(), "", egret.HttpMethod.GET);
-
-        //获取验证信息
-        // let req:HttpRequest = new HttpRequest(Config.USER_PARITY, "", egret.HttpMethod.GET);
     }
 
     /**
@@ -192,6 +198,8 @@ class Main extends eui.UILayer {
     {
         if (Config.IS_REQUEST)
         {
+            this.loadingView.textField.visible = false;
+            this.loadingView.startBtn.visible = true;
             this.removeEventListener(egret.Event.ENTER_FRAME,this.isRequestComplete, this);
             // Config.USER_CREDIT = Math.round(parseFloat(data.credit));
             let gameScene:GameScene = new GameScene();

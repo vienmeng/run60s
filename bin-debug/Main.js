@@ -73,10 +73,14 @@ var Main = (function (_super) {
         //Config to load process interface
         this.loadingView = new LoadingUI();
         this.stage.addChild(this.loadingView);
+        this.loadingView.startBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.removeLoading, this);
         //初始化Resource资源加载库
         //initiate Resource loading library
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         RES.loadConfig("resource/default.res.json", "resource/");
+    };
+    Main.prototype.removeLoading = function (event) {
+        this.stage.removeChild(this.loadingView);
     };
     /**
      * 配置文件加载完成,开始预加载preload资源组。
@@ -92,8 +96,13 @@ var Main = (function (_super) {
         RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
         RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
+        RES.loadGroup("loading");
         RES.loadGroup("preload");
         RES.loadGroup("headPort");
+        RES.loadGroup("comm_icon");
+        RES.loadGroup("userInfo");
+        RES.loadGroup("movieClip");
+        RES.loadGroup("track");
     };
     /**
      * 主题文件加载完成,开始预加载
@@ -109,7 +118,7 @@ var Main = (function (_super) {
      */
     Main.prototype.onResourceLoadComplete = function (event) {
         if (event.groupName == "preload") {
-            this.stage.removeChild(this.loadingView);
+            // this.stage.removeChild(this.loadingView);
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
@@ -156,20 +165,18 @@ var Main = (function (_super) {
      * Get user data
      */
     Main.prototype.getUserData = function () {
-        // let params:string = "uid=" + Config.USER_UID;
         var params = "?uid=" + Config.USER_UID + "&openid=" + Config.OPENID;
-        // let req:HttpRequest = new HttpRequest(Config.USER_REGISTER, params, egret.HttpMethod.POST);
         //检查用户是否登陆
-        Config.CURRENT_URL = Config.USER_CHECK_LOGIN;
+        Config.CURRENT_URL = Config.USER_PARITY;
         var req = new HttpRequest(Config.CURRENT_URL + params + "&t=" + Date.now(), "", egret.HttpMethod.GET);
-        //获取验证信息
-        // let req:HttpRequest = new HttpRequest(Config.USER_PARITY, "", egret.HttpMethod.GET);
     };
     Main.prototype.createGameScene = function () {
         this.addEventListener(egret.Event.ENTER_FRAME, this.isRequestComplete, this);
     };
     Main.prototype.isRequestComplete = function () {
         if (Config.IS_REQUEST) {
+            this.loadingView.textField.visible = false;
+            this.loadingView.startBtn.visible = true;
             this.removeEventListener(egret.Event.ENTER_FRAME, this.isRequestComplete, this);
             // Config.USER_CREDIT = Math.round(parseFloat(data.credit));
             var gameScene = new GameScene();
